@@ -53,7 +53,9 @@ app.controller('UsersController', function ($scope, $http, $resource, $location,
           UserService.addUser($scope.newUserId);
           $scope.newUserId = "";
         }
-        alert("You can't add a user without id!");
+        else {
+          alert("You can't add a user without id!");
+        }
     };
     $scope.saveUser = function(data, user) {
         angular.extend(user, data)
@@ -64,9 +66,9 @@ app.controller('UsersController', function ($scope, $http, $resource, $location,
         }
     };
     $scope.removeUser = function(user) {
-        if(!user.id === CurrentUserService.user.id)
+        if(!(user.id === CurrentUserService.user.id))
         {
-          UserService.saveUser(user);
+          UserService.removeUser(user);
         }
         else
         {

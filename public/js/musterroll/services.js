@@ -16,6 +16,10 @@ app.service("UserService", function( $http, $q, $location, $resource) {
         var newUser = {id:newUserId, firstName:"", lastName:"", isAdmin: false};
         service.saveUser(newUser);
         service.refresh();
+    },
+    removeUser: function(user) {
+        usersResource.delete(user);
+        service.refresh();
     }
 
   };
