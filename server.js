@@ -16,6 +16,9 @@ var domain = argv["domain"] || "example.com";
 
 var testing_mode = argv["testing"] == "true";
 
+var port_offset = testing_mode ? 1000 : 0;
+
+
 var skip_message_bus = testing_mode;
 
 if(testing_mode){
@@ -32,7 +35,7 @@ var ldapServer = musterroll_ldap.createServer(
 
 
 try{
-    ldapServer.listen(389, function() {
+    ldapServer.listen(389 + port_offset, function() {
         console.log('LDAP server listening at ' + ldapServer.url);
     });
 }
@@ -57,7 +60,7 @@ var webServer = musterroll_api.createServer({
 
 webServer.use("/", express.static(__dirname + '/public'));
 
-webServer.listen(80, function(){
+webServer.listen(80 + port_offset, function(){
     "use strict";
-    console.log('API server listening on port 80');
+    console.log('API server listening on port ' + (80 + port_offset));
 });

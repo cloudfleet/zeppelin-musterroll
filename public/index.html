@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="cockpit">
+<html ng-app="musterroll">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,116 +14,17 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.js"></script>
     <script src="js/angular-resource.js"></script>
+    <script src="js/angular-route.js"></script>
     <script src="js/xeditable.js"></script>
-    <script src="js/controllers/users.js"></script>
+    <script src="js/musterroll/app.js"></script>
+    <script src="js/musterroll/services.js"></script>
+    <script src="js/musterroll/controllers.js"></script>
 </head>
-<body ng-controller="CockpitCtrl">
+<body>
+  <div class="container-fluid">
 
-    <div class="row" ng-controller="LoginCtrl" ng-hide="currentUser.isAdmin">
-        <div class="col-lg-6">
-            <div ng-show="login_error" class="alert alert-danger alert-dismissable">
-                Wrong username or password. Please try again!
-            </div>
-            <form class="form-inline" id="login-form">
-                <div>
-                    <input type="text" class="form-control" ng-model="username" placeholder="username">
-                </div>
-                <div>
-                    <input type="password" class="form-control" ng-model="password" placeholder="password">
-                </div>
-                <button type="button" class="btn btn-primary" ng-click="login()">Login</button>
-            </form>
-        </div>
+    <div class="row" ng-view>
     </div>
-    <div class="row" ng-controller="UserCtrl" ng-show="currentUser.isAdmin">
-        <div class="col-lg-2">
-            <h1>Hello {{currentUser.firstName}}!</h1>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-lg-6">
-            <h3>Users</h3>
-            <table class="table table-responsive table-bordered">
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        First Name
-                    </th>
-                    <th>
-                        Last Name
-                    </th>
-                    <th>
-                        Admin
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-                <tr ng-repeat="user in users">
-                    <td>
-                        <span>
-                            {{user.id}}
-                        </span>
-                    </td>
-                    <td>
-                        <span editable-text="user.firstName" e-name="firstName" e-form="rowform">
-                            {{user.firstName}}
-                        </span>
-                    </td>
-                    <td>
-                        <span editable-text="user.lastName" e-name="lastName" e-form="rowform">
-                            {{user.lastName}}
-                        </span>
-                    </td>
-                    <td>
-                        <span editable-checkbox="user.isAdmin" e-name="isAdmin" e-form="rowform">
-                            <i ng-show="user.isAdmin" class="fa fa-check"></i>
-                        </span>
-                    </td>
-                    <td>
-                        <form
-                            editable-form
-                            name="rowform"
-                            onbeforesave="saveUser($data, user)"
-                            ng-show="rowform.$visible"
-                            class="form-buttons form-inline"
-                            shown="inserted == user"
-                            >
-                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-success btn-sm">
-                                save
-                            </button>
-                            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-danger btn-sm">
-                                cancel
-                            </button>
-                        </form>
-                        <div class="buttons" ng-show="!rowform.$visible">
-                            <button class="btn btn-primary btn-sm" ng-click="rowform.$show()">edit</button>
-                            <button class="btn btn-danger btn-sm" ng-click="removeUser($index)">del</button>
-                        </div>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-control" type="text" ng-model="newUserId">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" ng-click="addUser()">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-    </div>
-
-
+  </div>
 </body>
 </html>
