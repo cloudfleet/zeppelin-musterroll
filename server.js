@@ -2,6 +2,7 @@ var user_store_json = require('musterroll-userstore-json');
 var musterroll_ldap = require('musterroll-ldap');
 var musterroll_api = require('musterroll-api');
 var http = require('http');
+var express = require('express');
 var request = require('request');
 var argv = require('minimist')(process.argv.slice(2));
 var ejs  = require('ejs');
@@ -51,7 +52,6 @@ var webServer = musterroll_api.createServer({
         userStore.updateUser(user);
         userStore.setPassword(user["id"], password);
         callback(user);
-        };
     }
 });
 
