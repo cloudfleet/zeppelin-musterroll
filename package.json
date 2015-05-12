@@ -1,0 +1,29 @@
+{
+  "name": "cloudfleet-musterroll",
+  "version": "0.0.1",
+  "description": "The user store of a zeppelin",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js --domain=$CLOUDFLEET_DOMAIN"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cloudfleet/zeppelin-musteroll.git"
+  },
+  "author": "Christoph Witzany <doublemalt@cloudfleet.io> (cloudfleet.io)",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/cloudfleet/zeppelin-musteroll/issues"
+  },
+  "homepage": "https://github.com/cloudfleet/zeppelin-musteroll",
+  "dependencies": {
+    "musterroll-api": "git://github.com/cloudfleet/musterroll-api.git",
+    "musterroll-ldap": "git://github.com/cloudfleet/musterroll-ldap.git",
+    "musterroll-userstore-json": "git://github.com/cloudfleet/musterroll-userstore-json.git",
+    "express": "^3.5.0",
+    "request": "^2.34.0",
+    "minimist": "0.0.8",
+    "ejs": ""
+  }
+}
