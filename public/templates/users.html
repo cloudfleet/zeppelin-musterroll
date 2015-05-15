@@ -1,3 +1,5 @@
+<ng-include src="'/templates/password_dialog.html'">
+</ng-include>
 <div class="row">
     <h1>Hello {{current_user_service.user.firstName}}!</h1>
     <div class="col-lg-6">
@@ -59,7 +61,7 @@
                     <div class="buttons" ng-show="!rowform.$visible">
                         <button class="btn btn-primary btn-sm" ng-click="rowform.$show()">edit</button>
                         <button class="btn btn-danger btn-sm" ng-click="removeUser(user)">del</button>
-                        <button class="btn btn-danger btn-sm" ng-click="setPassword(user)">set password</button>
+                        <button class="btn btn-danger btn-sm" ng-click="showChangePasswordDialog(user)">set password</button>
                     </div>
 
                 </td>

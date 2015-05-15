@@ -9,8 +9,21 @@ app.controller('ProfileController', function ($scope, $http, $resource, $locatio
 
     $scope.current_user_service = CurrentUserService;
 
-    $scope.saveUser = function() {
+    $scope.password_change_info = {};
+
+    $scope.edit = function()
+    {
+      $scope.edit_mode = true;
+    };
+    $scope.cancel = function()
+    {
+      $scope.edit_mode = false;
+      CurrentUserService.refresh();
+    };
+
+    $scope.save = function() {
         CurrentUserService.save();
+        $scope.edit_mode = false;
     };
 
     $scope.getGreeter = function()
@@ -31,6 +44,25 @@ app.controller('ProfileController', function ($scope, $http, $resource, $locatio
         return "Nobody";
       }
     };
+
+    $scope.changePassword = function()
+    {
+      if($scope.password_change_info.new_password === $scope.password_change_info.new_password_repeat)
+      {
+        CurrentUserService.setPassword($scope.password_change_info.old_password, $scope.password_change_info.new_password);
+        $("#password-dialog").modal("hide");
+      }
+      else
+      {
+        alert("New Passwords don't match");
+      }
+    };
+
+    $scope.showChangePasswordDialog = function()
+    {
+      $("#password-dialog").modal("show");
+    };
+
 
 });
 
@@ -74,6 +106,31 @@ app.controller('UsersController', function ($scope, $http, $resource, $location,
         {
           alert("You can't commit suicide!");
         }
+    };
+
+    $scope.showChangePasswordDialog = function(user)
+    {
+      $scope.password_change_info = {
+        id: user.id,
+        skip_old_password: true
+        };
+      $("#password-dialog").modal("show");
+    }
+
+    $scope.changePassword = function()
+    {
+      if($scope.password_change_info.new_password === $scope.password_change_info.new_password_repeat)
+      {
+        UserService.setPassword(
+          $scope.password_change_info.id,
+          $scope.password_change_info.old_password,
+          $scope.password_change_info.new_password);
+        $("#password-dialog").modal("hide");
+      }
+      else
+      {
+        alert("New Passwords don't match");
+      }
     };
 
 

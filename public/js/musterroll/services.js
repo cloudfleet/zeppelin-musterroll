@@ -7,7 +7,8 @@ app.service("UserService", function( $http, $q, $location, $resource) {
 
   var service = {
     saveUser: function(user) {
-        return usersResource.save(user);
+        var result = usersResource.save(user);
+        return result;
     },
     refresh: function() {
       service.users = usersCollection.query(function(){});
@@ -20,6 +21,18 @@ app.service("UserService", function( $http, $q, $location, $resource) {
     removeUser: function(user) {
         usersResource.delete(user);
         service.refresh();
+    },
+    setPassword: function(user_id, old_password, new_password) {
+      return $http({
+        method: "PUT",
+        url: "/api/v1/users/" + user_id + "/password",
+        data: {
+          old_password: old_password,
+          password: new_password
+        }
+      }).success(function(data){
+        alert("Password set successfully");
+      });
     }
 
   };
@@ -67,12 +80,17 @@ app.service("CurrentUserService", function( $http, $q, $location, $resource,  Us
     },
     save: function()
     {
-        UserService.save(service.user).success(function(data){
+        return UserService.saveUser(service.user)
+          .$promise
+          .then(function(data){
             service.user = data;
             console.log(data);
-        });
+          });
     },
 
+    setPassword: function(old_password, new_password) {
+      return UserService.setPassword(service.user.id, old_password, new_password);
+    }
 
 
   };
