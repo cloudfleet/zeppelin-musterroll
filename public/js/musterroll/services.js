@@ -57,8 +57,9 @@ app.service("CurrentUserService", function( $http, $q, $location, $resource,  Us
       }).success(function ()
           {
               service.login_error = false;
-              service.refresh();
-              $location.path('/');
+              service.refresh().success(function(){
+                $location.path('/');
+              });
           }
       ).error(function()
           {
@@ -69,7 +70,7 @@ app.service("CurrentUserService", function( $http, $q, $location, $resource,  Us
     },
     refresh: function()
     {
-        $http.get("/api/v1/currentUser").success(function(data){
+        return $http.get("/api/v1/currentUser").success(function(data){
             service.user = data;
             if(service.user.isAdmin)
             {

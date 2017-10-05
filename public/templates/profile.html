@@ -31,4 +31,7 @@
       <button type="button" class="btn btn-primary" ng-click="edit()">Edit</button>
       <button type="button" class="btn btn-primary" ng-click="showChangePasswordDialog()">Change Password</button>
     </div>
+    <div class="col-xs-3" ng-show="!CurrentUserService.user.isAdmin">
+      <a href="/#/users" class="btn btn-primary" >Edit Users</a>
+    </div>
 </div>
